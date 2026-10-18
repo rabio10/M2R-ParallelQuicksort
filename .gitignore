@@ -35,3 +35,6 @@ journal.tex
 *.x86_64
 *.hex
 src/parallelQuicksort
+# Python
+.venv/
+.ipynb_checkpoints/
