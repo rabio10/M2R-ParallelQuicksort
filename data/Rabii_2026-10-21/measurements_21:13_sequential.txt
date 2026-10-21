@@ -1,0 +1,80 @@
+Size: 100
+Sequential quicksort took: 0.000006 sec.
+Size: 100
+Sequential quicksort took: 0.000006 sec.
+Size: 100
+Sequential quicksort took: 0.000006 sec.
+Size: 100
+Sequential quicksort took: 0.000006 sec.
+Size: 100
+Sequential quicksort took: 0.000006 sec.
+Size: 1000
+Sequential quicksort took: 0.000074 sec.
+Size: 1000
+Sequential quicksort took: 0.000069 sec.
+Size: 1000
+Sequential quicksort took: 0.000070 sec.
+Size: 1000
+Sequential quicksort took: 0.000075 sec.
+Size: 1000
+Sequential quicksort took: 0.000073 sec.
+Size: 10000
+Sequential quicksort took: 0.000873 sec.
+Size: 10000
+Sequential quicksort took: 0.001054 sec.
+Size: 10000
+Sequential quicksort took: 0.000859 sec.
+Size: 10000
+Sequential quicksort took: 0.000875 sec.
+Size: 10000
+Sequential quicksort took: 0.001027 sec.
+Size: 100000
+Sequential quicksort took: 0.010509 sec.
+Size: 100000
+Sequential quicksort took: 0.011409 sec.
+Size: 100000
+Sequential quicksort took: 0.011065 sec.
+Size: 100000
+Sequential quicksort took: 0.010588 sec.
+Size: 100000
+Sequential quicksort took: 0.012191 sec.
+Size: 1000000
+Sequential quicksort took: 0.135994 sec.
+Size: 1000000
+Sequential quicksort took: 0.136538 sec.
+Size: 1000000
+Sequential quicksort took: 0.129115 sec.
+Size: 1000000
+Sequential quicksort took: 0.132249 sec.
+Size: 1000000
+Sequential quicksort took: 0.130485 sec.
+Size: 2000000
+Sequential quicksort took: 0.277564 sec.
+Size: 2000000
+Sequential quicksort took: 0.273265 sec.
+Size: 2000000
+Sequential quicksort took: 0.271205 sec.
+Size: 2000000
+Sequential quicksort took: 0.274080 sec.
+Size: 2000000
+Sequential quicksort took: 0.286901 sec.
+Size: 5000000
+Sequential quicksort took: 0.747911 sec.
+Size: 5000000
+Sequential quicksort took: 0.740210 sec.
+Size: 5000000
+Sequential quicksort took: -0.607468 sec.
+Size: 5000000
+Sequential quicksort took: 0.736804 sec.
+Size: 5000000
+Sequential quicksort took: 0.729803 sec.
+Size: 10000000
+Sequential quicksort took: 1.530592 sec.
+Size: 10000000
+Sequential quicksort took: 1.507636 sec.
+Size: 10000000
+Sequential quicksort took: 1.544396 sec.
+Size: 10000000
+Sequential quicksort took: 1.542210 sec.
+Size: 10000000
+Sequential quicksort took: 1.563839 sec.

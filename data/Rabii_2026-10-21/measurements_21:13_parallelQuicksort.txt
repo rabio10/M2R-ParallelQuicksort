@@ -1,0 +1,80 @@
+Size: 100
+Parallel quicksort took: 0.012703 sec.
+Size: 100
+Parallel quicksort took: 0.008624 sec.
+Size: 100
+Parallel quicksort took: 0.009176 sec.
+Size: 100
+Parallel quicksort took: 0.011764 sec.
+Size: 100
+Parallel quicksort took: 0.010381 sec.
+Size: 1000
+Parallel quicksort took: 0.037999 sec.
+Size: 1000
+Parallel quicksort took: 0.037127 sec.
+Size: 1000
+Parallel quicksort took: 0.022450 sec.
+Size: 1000
+Parallel quicksort took: 0.024822 sec.
+Size: 1000
+Parallel quicksort took: 0.029311 sec.
+Size: 10000
+Parallel quicksort took: 0.060243 sec.
+Size: 10000
+Parallel quicksort took: 0.060374 sec.
+Size: 10000
+Parallel quicksort took: 0.061609 sec.
+Size: 10000
+Parallel quicksort took: 0.059725 sec.
+Size: 10000
+Parallel quicksort took: 0.056712 sec.
+Size: 100000
+Parallel quicksort took: 0.081647 sec.
+Size: 100000
+Parallel quicksort took: 0.084991 sec.
+Size: 100000
+Parallel quicksort took: 0.078489 sec.
+Size: 100000
+Parallel quicksort took: 0.076713 sec.
+Size: 100000
+Parallel quicksort took: 0.068392 sec.
+Size: 1000000
+Parallel quicksort took: 0.167101 sec.
+Size: 1000000
+Parallel quicksort took: 0.155139 sec.
+Size: 1000000
+Parallel quicksort took: 0.174552 sec.
+Size: 1000000
+Parallel quicksort took: 0.159897 sec.
+Size: 1000000
+Parallel quicksort took: 0.169479 sec.
+Size: 2000000
+Parallel quicksort took: 0.304213 sec.
+Size: 2000000
+Parallel quicksort took: 0.303895 sec.
+Size: 2000000
+Parallel quicksort took: 0.296786 sec.
+Size: 2000000
+Parallel quicksort took: 0.303871 sec.
+Size: 2000000
+Parallel quicksort took: 0.292610 sec.
+Size: 5000000
+Parallel quicksort took: 0.734883 sec.
+Size: 5000000
+Parallel quicksort took: 0.739784 sec.
+Size: 5000000
+Parallel quicksort took: 0.741696 sec.
+Size: 5000000
+Parallel quicksort took: 0.715922 sec.
+Size: 5000000
+Parallel quicksort took: 0.748010 sec.
+Size: 10000000
+Parallel quicksort took: 1.468387 sec.
+Size: 10000000
+Parallel quicksort took: 1.453542 sec.
+Size: 10000000
+Parallel quicksort took: 1.426259 sec.
+Size: 10000000
+Parallel quicksort took: 1.496146 sec.
+Size: 10000000
+Parallel quicksort took: 1.441050 sec.
