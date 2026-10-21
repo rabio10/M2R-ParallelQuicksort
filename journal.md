@@ -1,4 +1,4 @@
-# 2026-10-18
+## 2026-10-18
 
 **Author:** Rabii Abouaissa
 
@@ -13,8 +13,9 @@ Conclusions:
 - and the parallel algorithm doesn't seem to be the best after the 1M threshold. Not sure if there's an issue with the implementation of the experimental setup (WSL). needs more investigation.
 
 
-**Author** Yassine OUAHMANE 
 ## 2026-10-18: Sequential vs parallel threshold
+
+**Author** Yassine OUAHMANE
 
 **Goal:** find the array size from which the parallel quicksort beats the sequential one on my laptop (i7-1185G7, 4 cores / 8 threads).
 
@@ -30,3 +31,12 @@ Conclusions:
 - Parallel is reliably faster from **1M elements** on, but the gain stays small (≈1.3× at 1e7).
 
 **To try next:** compile with `-O2`, vary `THREAD_LEVEL`, and replace `rand()` in `partition` (global lock) to see how the threshold moves.
+
+## 2026-10-21: meeting and discussion
+**Author:** Rabii Abouaissa
+
+after a meeting with Yassine, we discussed the results of the threshold benchmark. We agreed that the parallel algorithm is not as efficient as expected for small input sizes, but the break-even point is different for each one of us.
+
+so the next step for us is expanding the analysis in two directions : 
+1. expand the comparison between the algorithms to larger input sizes, to see if the parallel algorithm starts to outperform the sequential one at even larger input sizes.
+2. add another dimension to the analysis, by comparing the performance of the algorithmsin terms of memory usage, to see if the parallel algorithm is more memory efficient than the sequential one.  
