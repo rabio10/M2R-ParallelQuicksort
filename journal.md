@@ -55,3 +55,14 @@ Conclusions:
 - Memory is very stable from one run to another, unlike the times.
 - Sequential uses nothing more than the two arrays. Parallel adds ~6–8 MB for the threads whatever the size (a lot for small arrays, +4% at 10M). Built-in adds one more copy of the array (~76 MB at 10M).
 - So the parallel algorithm is not more memory efficient than the sequential one, but its extra memory doesn't grow with the size.
+
+## 2026-10-22: very big arrays
+**Author:** Yassine OUAHMANE
+
+After the meeting we wanted to see if parallel finally wins by a lot when the arrays are really big, so I pushed the sizes way up: 10M, 20M, 50M, 100M and 200M, 5 runs each in random order (`scripts/run_large_benchmark.sh`). I didn't go further than 200M because the program keeps ~24 bytes per element (the two arrays + the qsort buffer), so 200M is already ~5 GB, and one run at that size takes almost 3 min. Data is in `data/yassine-HP-EliteBook-840-G8-Notebook-PC_2026-10-22/`, analysis at the end of `analysis_yassine.ipynb`.
+
+The run took more than 1h instead of ~25 min. One built-in run at 50M "took" 2390 s... I checked the logs and the laptop went to sleep in the middle of it (I left it on battery). Since the program measures with `gettimeofday`, the sleeping time got counted. I removed that point; the others look fine. Next time: plug the charger and disable sleep.
+
+What I got: parallel is faster than the two others at every size, every run. But the speed-up doesn't really grow, it stays around 1.3–1.45x against sequential (best at 50M) and only 1.1–1.2x against built-in, and it's a bit lower at 200M. So bigger arrays don't fix it, the problem is more in the code (one thread does the first partition alone, all threads share `rand()`, and it's compiled in `-O0`). I think the next thing to try is changing the code/compilation rather than the sizes, to see if the limit is the code itself or the resources of the machine (if the speed-up goes up on the same laptop with only the code changed, then it was the code).
+
+Lesson learned from the sleep thing: before starting a long benchmark, make sure the computer stays awake for the whole time and nothing can suspend it. That means plugging the charger, turning off automatic suspend / screen lock in the settings (or running the script with `systemd-inhibit ./scripts/run_large_benchmark.sh` so the system can't go to sleep while it runs), and not closing the lid. Otherwise you get crazy values like this 2390 s, or even negative times like Rabii had, because `gettimeofday` follows the real clock and doesn't care if the machine was sleeping. It would also be better to measure with `clock_gettime(CLOCK_MONOTONIC)` in the code, and to quickly check the system logs after a long run to see if there was a suspend.
