@@ -11,6 +11,8 @@
 */
 
 
+#define _POSIX_C_SOURCE 200112L  // for clock_gettime with -std=c99
+
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -52,7 +54,8 @@ Main method:
 */
 int main(int argc, char *argv[])
 {
-  struct timeval start, end;
+  // monotonic clock: unlike gettimeofday, it can't go backwards when WSL adjusts the time
+  struct timespec start, end;
   double diff;
 
   srand(time(NULL));            //seed random
@@ -82,17 +85,16 @@ int main(int argc, char *argv[])
   // run the algorithm specified by the user
   if (strcmp(algorithm, "sequential") == 0) {
     //Sequential mergesort, and timing.
-    gettimeofday(&start, NULL);
+    clock_gettime(CLOCK_MONOTONIC, &start);
     quicksort(lyst, NUM);
-    gettimeofday(&end, NULL);
+    clock_gettime(CLOCK_MONOTONIC, &end);
 
     if (!isSorted(lyst, NUM)) {
       printf("Oops, lyst did not get sorted by quicksort.\n");
     }
     //Compute time difference.
-    diff = ((end.tv_sec * 1000000 + end.tv_usec)
-            - (start.tv_sec * 1000000 + start.tv_usec)) / 1000000.0;
-    printf("Sequential quicksort took: %lf sec.\n", diff);
+    diff = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    printf("Sequential quicksort took: %.9lf sec.\n", diff);
     
   } else if (strcmp(algorithm, "parallelQuicksort") == 0) {
     //Now, parallel quicksort.
@@ -100,32 +102,30 @@ int main(int argc, char *argv[])
     //copy list.
     memcpy(lyst, lystbck, NUM * sizeof(double));
 
-    gettimeofday(&start, NULL);
+    clock_gettime(CLOCK_MONOTONIC, &start);
     parallelQuicksort(lyst, NUM, THREAD_LEVEL);
-    gettimeofday(&end, NULL);
+    clock_gettime(CLOCK_MONOTONIC, &end);
 
     if (!isSorted(lyst, NUM)) {
       printf("Oops, lyst did not get sorted by parallelQuicksort.\n");
     }
     //Compute time difference.
-    diff = ((end.tv_sec * 1000000 + end.tv_usec)
-            - (start.tv_sec * 1000000 + start.tv_usec)) / 1000000.0;
-    printf("Parallel quicksort took: %lf sec.\n", diff);
+    diff = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    printf("Parallel quicksort took: %.9lf sec.\n", diff);
     
   } else if (strcmp(algorithm, "qsort") == 0) {
     //Finally, built-in for reference:
     memcpy(lyst, lystbck, NUM * sizeof(double));
-    gettimeofday(&start, NULL);
+    clock_gettime(CLOCK_MONOTONIC, &start);
     qsort(lyst, NUM, sizeof(double), compare_doubles);
-    gettimeofday(&end, NULL);
+    clock_gettime(CLOCK_MONOTONIC, &end);
 
     if (!isSorted(lyst, NUM)) {
       printf("Oops, lyst did not get sorted by qsort.\n");
     }
     //Compute time difference.
-    diff = ((end.tv_sec * 1000000 + end.tv_usec)
-            - (start.tv_sec * 1000000 + start.tv_usec)) / 1000000.0;
-    printf("Built-in quicksort took: %lf sec.\n", diff);
+    diff = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    printf("Built-in quicksort took: %.9lf sec.\n", diff);
     
   } else {
     printf("Unknown algorithm specified: %s\n", algorithm);

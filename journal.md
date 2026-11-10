@@ -66,3 +66,22 @@ The run took more than 1h instead of ~25 min. One built-in run at 50M "took" 239
 What I got: parallel is faster than the two others at every size, every run. But the speed-up doesn't really grow, it stays around 1.3–1.45x against sequential (best at 50M) and only 1.1–1.2x against built-in, and it's a bit lower at 200M. So bigger arrays don't fix it, the problem is more in the code (one thread does the first partition alone, all threads share `rand()`, and it's compiled in `-O0`). I think the next thing to try is changing the code/compilation rather than the sizes, to see if the limit is the code itself or the resources of the machine (if the speed-up goes up on the same laptop with only the code changed, then it was the code).
 
 Lesson learned from the sleep thing: before starting a long benchmark, make sure the computer stays awake for the whole time and nothing can suspend it. That means plugging the charger, turning off automatic suspend / screen lock in the settings (or running the script with `systemd-inhibit ./scripts/run_large_benchmark.sh` so the system can't go to sleep while it runs), and not closing the lid. Otherwise you get crazy values like this 2390 s, or even negative times like Rabii had, because `gettimeofday` follows the real clock and doesn't care if the machine was sleeping. It would also be better to measure with `clock_gettime(CLOCK_MONOTONIC)` in the code, and to quickly check the system logs after a long run to see if there was a suspend.
+
+## 2026-11-10: distribution of the run times
+**Author:** Rabii Abouaissa
+
+- Moved from observation to a designed experiment (course: replication + randomization). Many runs per algorithm at fixed sizes, each run in its own process, all runs in random order.
+- `src/parallelQuicksort_order_diff.c` now measures with `clock_gettime(CLOCK_MONOTONIC)` instead of `gettimeofday`, so WSL clock adjustments can't give negative times. It prints 9 decimals, because a sort of 100 elements takes ~6 µs.
+- New script `scripts/run_distribution_benchmark.sh` (`SIZES`, `REPS`). It also saves the machine environment.
+- Ran it 3 times from the repo root. Data in `data/Rabii_2026-11-10/`.
+  - `./scripts/run_distribution_benchmark.sh`: 5M, 30 runs per algorithm (`distribution_1253.csv`).
+  - `REPS=100 ./scripts/run_distribution_benchmark.sh`: 5M, 100 runs per algorithm (`distribution_1306.csv`).
+  - `SIZES="100 1000 1000000 10000000" REPS=150 ./scripts/run_distribution_benchmark.sh`: 150 runs per algorithm and size, all shuffled together (`distribution_1422.csv`).
+- Analysis in `analysis_rabii.ipynb`: histograms, normal probability plots, sequence and lag plots, 95% confidence intervals of the means and of the differences between algorithms.
+
+Conclusions:
+
+- The bigger the array, the closer the times are to normal. At 10M all three are close to normal. At 100 and 1000 a few runs are up to 20 times slower than the others.
+- Sequence plots are flat and lag plots have no shape, so the runs are independent and identically distributed and the CLT applies to the means.
+- The two 5M sittings differ. The slow start and the slow Built-in runs of the first one were gone in the second.
+- Fastest algorithm at 95% confidence: Built-in or Sequential at 100 (no significant difference), Built-in at 1000, Sequential at 1M (Parallel 20% slower), Parallel at 10M (8% faster than Sequential). Parallel and Sequential are equal at 5M, so on this machine Parallel overtakes Sequential between 5M and 10M.

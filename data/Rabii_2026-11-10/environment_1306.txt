@@ -1,0 +1,13 @@
+CPU(s):                               12
+Model name:                           12th Gen Intel(R) Core(TM) i5-12450H
+Thread(s) per core:                   2
+Core(s) per socket:                   6
+               total        used        free      shared  buff/cache   available
+Mem:               7           4           0           0           2           3
+Swap:              8           0           7
+6.6.87.2-microsoft-standard-WSL2
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+git commit: 506bf26
+ M src/parallelQuicksort_order_diff.c
+?? scripts/run_distribution_benchmark.sh
+ 13:06:55 up 3 days, 15 min,  1 user,  load average: 0.29, 0.83, 1.43
